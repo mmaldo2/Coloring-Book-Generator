@@ -131,7 +131,7 @@ export default function App() {
           fontStyle: "italic",
         }}
       >
-        Powered by Gemini Imagen 4 — each page is uniquely generated for you
+        Powered by FLUX — each page is uniquely generated for you
       </p>
     </div>
   );
