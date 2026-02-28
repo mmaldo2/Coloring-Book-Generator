@@ -1,36 +1,32 @@
-import { GoogleGenAI } from "@google/genai";
+import { InferenceClient } from "@huggingface/inference";
 
-let ai;
+let client;
 
 function getClient() {
-  if (!ai) {
-    if (!process.env.GEMINI_API_KEY) {
-      throw new Error("GEMINI_API_KEY environment variable is not set");
-    }
-    ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+  if (!client) {
+    const token = process.env.HF_TOKEN || "";
+    client = new InferenceClient(token);
   }
-  return ai;
+  return client;
 }
 
 export async function generateColoringPage(prompt) {
-  const client = getClient();
+  const hf = getClient();
 
-  const response = await client.models.generateImages({
-    model: "imagen-4.0-fast-generate-001",
-    prompt,
-    config: {
-      numberOfImages: 1,
-      aspectRatio: "3:4",
+  const blob = await hf.textToImage({
+    model: "black-forest-labs/FLUX.1-schnell",
+    inputs: prompt,
+    parameters: {
+      width: 768,
+      height: 1024,
     },
   });
 
-  if (!response.generatedImages || response.generatedImages.length === 0) {
-    throw new Error("No image was generated. The content may have been blocked.");
-  }
+  const buffer = Buffer.from(await blob.arrayBuffer());
+  const imageBase64 = buffer.toString("base64");
 
-  const image = response.generatedImages[0];
   return {
-    imageBase64: image.image.imageBytes,
-    mimeType: "image/png",
+    imageBase64,
+    mimeType: "image/jpeg",
   };
 }
