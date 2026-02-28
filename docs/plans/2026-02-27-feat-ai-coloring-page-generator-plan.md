@@ -1,7 +1,7 @@
 ---
 title: AI Coloring Book Page Generator
 type: feat
-status: active
+status: completed
 date: 2026-02-27
 brainstorm: docs/brainstorms/2026-02-27-image-gen-integration-brainstorm.md
 ---
@@ -138,15 +138,15 @@ function wrapPrompt(userPrompt) {
 Set up the full-stack project from scratch.
 
 **Tasks:**
-- [ ] Create root `package.json` with `concurrently` dev script
-- [ ] Create `.gitignore` (node_modules, .env, dist, .DS_Store)
-- [ ] Create `.env.example` with `GEMINI_API_KEY=`
-- [ ] Scaffold `client/` with Vite + React (`npm create vite@latest client -- --template react`)
-- [ ] Configure `client/vite.config.js` with `/api` proxy to `localhost:3001`
-- [ ] Scaffold `server/` with Express + `@google/genai`
-- [ ] Create `server/index.js` with Express app (dev + production static serving)
-- [ ] Verify `npm run dev` starts both client and server concurrently
-- [ ] Verify Vite proxy forwards `/api/health` to Express
+- [x] Create root `package.json` with `concurrently` dev script
+- [x] Create `.gitignore` (node_modules, .env, dist, .DS_Store)
+- [x] Create `.env.example` with `GEMINI_API_KEY=`
+- [x] Scaffold `client/` with Vite + React (`npm create vite@latest client -- --template react`)
+- [x] Configure `client/vite.config.js` with `/api` proxy to `localhost:3001`
+- [x] Scaffold `server/` with Express + `@google/genai`
+- [x] Create `server/index.js` with Express app (dev + production static serving)
+- [x] Verify `npm run dev` starts both client and server concurrently
+- [x] Verify Vite proxy forwards `/api/health` to Express
 
 **Files created:**
 - `package.json` (root)
@@ -167,14 +167,14 @@ Set up the full-stack project from scratch.
 Build the Express API endpoint that wraps prompts and calls Gemini Imagen 4.
 
 **Tasks:**
-- [ ] Create `server/lib/imagen.js` — Imagen 4 API wrapper using `@google/genai`
-- [ ] Create `server/lib/prompt.js` — prompt wrapping/template function
-- [ ] Create `server/routes/generate.js` — `POST /api/generate` route handler
-- [ ] Add input validation: prompt required, max 500 characters
-- [ ] Add `express-rate-limit` middleware (3 requests per 30 seconds per IP)
-- [ ] Add 60-second timeout budget for the full request lifecycle
-- [ ] Map Gemini API errors to the response contract (content block, rate limit, server error)
-- [ ] Test with curl: send a prompt, receive base64 PNG in response contract format
+- [x]Create `server/lib/imagen.js` — Imagen 4 API wrapper using `@google/genai`
+- [x]Create `server/lib/prompt.js` — prompt wrapping/template function
+- [x]Create `server/routes/generate.js` — `POST /api/generate` route handler
+- [x]Add input validation: prompt required, max 500 characters
+- [x]Add `express-rate-limit` middleware (3 requests per 30 seconds per IP)
+- [x]Add 60-second timeout budget for the full request lifecycle
+- [x]Map Gemini API errors to the response contract (content block, rate limit, server error)
+- [x]Test with curl: send a prompt, receive base64 PNG in response contract format
 
 **Files created:**
 - `server/lib/imagen.js`
@@ -213,15 +213,15 @@ export async function generateColoringPage(prompt) {
 Build the prompt input UI and connect it to the backend.
 
 **Tasks:**
-- [ ] Create `PromptInput.jsx` — text input (max 500 chars with counter) + Generate button
-- [ ] Create `LoadingState.jsx` — animated loading indicator shown during generation
-- [ ] Wire up `App.jsx` state: `pages` array, `isGenerating` flag, `error` message
-- [ ] Implement `handleGenerate()` — POST to `/api/generate`, add result to `pages` array
-- [ ] Implement `handleTryAgain()` — re-send the current page's prompt
-- [ ] Display error messages from the response contract
-- [ ] Preserve prompt text in input on error (don't clear it)
-- [ ] Disable Generate button while a request is in-flight
-- [ ] Apply the warm parchment design language (Playfair Display, parchment gradients, `#2a1810` browns)
+- [x]Create `PromptInput.jsx` — text input (max 500 chars with counter) + Generate button
+- [x]Create `LoadingState.jsx` — animated loading indicator shown during generation
+- [x]Wire up `App.jsx` state: `pages` array, `isGenerating` flag, `error` message
+- [x]Implement `handleGenerate()` — POST to `/api/generate`, add result to `pages` array
+- [x]Implement `handleTryAgain()` — re-send the current page's prompt
+- [x]Display error messages from the response contract
+- [x]Preserve prompt text in input on error (don't clear it)
+- [x]Disable Generate button while a request is in-flight
+- [x]Apply the warm parchment design language (Playfair Display, parchment gradients, `#2a1810` browns)
 
 **Files created/modified:**
 - `client/src/App.jsx`
@@ -235,14 +235,14 @@ Build the prompt input UI and connect it to the backend.
 Build the page-flip scrapbook gallery that accumulates generated pages.
 
 **Tasks:**
-- [ ] Create `ScrapbookGallery.jsx` — page-flip viewer (adapted from existing `coloring-book.jsx` animation logic)
-- [ ] Create `PageCard.jsx` — displays a single generated image with its prompt as a subtitle
-- [ ] Implement page-flip animation (opacity + translateX transition, ~260ms, from existing component)
-- [ ] Implement Previous/Next navigation buttons
-- [ ] Implement dot pagination with direct page jumping
-- [ ] "Try Again" button on each page (appends a new variation)
-- [ ] Gallery appears after first image is generated; hidden before
-- [ ] Handle growing gallery: newest page auto-selected after generation
+- [x]Create `ScrapbookGallery.jsx` — page-flip viewer (adapted from existing `coloring-book.jsx` animation logic)
+- [x]Create `PageCard.jsx` — displays a single generated image with its prompt as a subtitle
+- [x]Implement page-flip animation (opacity + translateX transition, ~260ms, from existing component)
+- [x]Implement Previous/Next navigation buttons
+- [x]Implement dot pagination with direct page jumping
+- [x]"Try Again" button on each page (appends a new variation)
+- [x]Gallery appears after first image is generated; hidden before
+- [x]Handle growing gallery: newest page auto-selected after generation
 
 **Files created:**
 - `client/src/components/ScrapbookGallery.jsx`
@@ -255,10 +255,10 @@ Build the page-flip scrapbook gallery that accumulates generated pages.
 Add the ability to download and print individual coloring pages.
 
 **Tasks:**
-- [ ] Create `DownloadButton.jsx` — converts base64 to Blob, triggers download as `coloring-page-{timestamp}.png`
-- [ ] Create `PrintButton.jsx` — opens image in a new window with print-optimized CSS, triggers `window.print()`
-- [ ] Add `@media print` styles: hide all UI except the image, fill the page, set portrait orientation
-- [ ] Add alt text on images derived from the user's prompt
+- [x]Create `DownloadButton.jsx` — converts base64 to Blob, triggers download as `coloring-page-{timestamp}.png`
+- [x]Create `PrintButton.jsx` — opens image in a new window with print-optimized CSS, triggers `window.print()`
+- [x]Add `@media print` styles: hide all UI except the image, fill the page, set portrait orientation
+- [x]Add alt text on images derived from the user's prompt
 
 **Files created:**
 - `client/src/components/DownloadButton.jsx`
@@ -271,13 +271,13 @@ Add the ability to download and print individual coloring pages.
 Wire up production builds and final polish.
 
 **Tasks:**
-- [ ] Configure `server/index.js` to serve `client/dist/` in production (`NODE_ENV=production`)
-- [ ] Add SPA catch-all route (non-API routes serve `index.html`)
-- [ ] Mount API routes before static files (critical ordering)
-- [ ] Add `npm run build` and `npm start` scripts to root `package.json`
-- [ ] Remove the old `coloring-book.jsx` file from the repo root
-- [ ] Verify `npm run build && npm start` works end-to-end
-- [ ] Add responsive styles for mobile (prompt input, gallery, buttons)
+- [x]Configure `server/index.js` to serve `client/dist/` in production (`NODE_ENV=production`)
+- [x]Add SPA catch-all route (non-API routes serve `index.html`)
+- [x]Mount API routes before static files (critical ordering)
+- [x]Add `npm run build` and `npm start` scripts to root `package.json`
+- [x]Remove the old `coloring-book.jsx` file from the repo root
+- [x]Verify `npm run build && npm start` works end-to-end
+- [x]Add responsive styles for mobile (prompt input, gallery, buttons)
 
 **Files modified:**
 - `server/index.js`
@@ -288,22 +288,22 @@ Wire up production builds and final polish.
 ## Acceptance Criteria
 
 ### Functional Requirements
-- [ ] User can type a free-text prompt and generate a coloring book line art page
-- [ ] Generated pages are clean black outlines on white background (suitable for hand coloring)
-- [ ] Generated pages accumulate in a scrapbook-style gallery with page-flip navigation
-- [ ] "Try Again" re-runs the same prompt and appends a new page
-- [ ] Users can download individual pages as PNG
-- [ ] Users can print individual pages via browser print dialog
-- [ ] Error messages are user-friendly and specific to the error type
-- [ ] Prompt text is preserved in the input on error
+- [x]User can type a free-text prompt and generate a coloring book line art page
+- [x]Generated pages are clean black outlines on white background (suitable for hand coloring)
+- [x]Generated pages accumulate in a scrapbook-style gallery with page-flip navigation
+- [x]"Try Again" re-runs the same prompt and appends a new page
+- [x]Users can download individual pages as PNG
+- [x]Users can print individual pages via browser print dialog
+- [x]Error messages are user-friendly and specific to the error type
+- [x]Prompt text is preserved in the input on error
 
 ### Non-Functional Requirements
-- [ ] Server-side rate limiting protects the API key (3 req/30s per IP)
-- [ ] API key is never exposed to the client
-- [ ] 60-second timeout on generation requests
-- [ ] Warm parchment visual design (Playfair Display, `#2a1810` palette)
-- [ ] Works on mobile (responsive layout)
-- [ ] Production build serves from a single Express process
+- [x]Server-side rate limiting protects the API key (3 req/30s per IP)
+- [x]API key is never exposed to the client
+- [x]60-second timeout on generation requests
+- [x]Warm parchment visual design (Playfair Display, `#2a1810` palette)
+- [x]Works on mobile (responsive layout)
+- [x]Production build serves from a single Express process
 
 ## Dependencies & Prerequisites
 
