@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === "production") {
     })
   );
 
-  app.get("*", (_req, res) => {
+  app.get("/{*path}", (_req, res) => {
     res.sendFile(path.join(clientDist, "index.html"));
   });
 }

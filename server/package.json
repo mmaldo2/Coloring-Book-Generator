@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node --watch index.js"
+    "dev": "node --watch --env-file=../.env index.js"
   },
   "dependencies": {
     "@google/genai": "^1.43.0",

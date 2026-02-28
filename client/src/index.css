@@ -20,6 +20,15 @@ body {
   align-items: center;
 }
 
+@media (max-width: 640px) {
+  h1 {
+    font-size: 24px !important;
+  }
+  textarea {
+    font-size: 15px !important;
+  }
+}
+
 @media print {
   body, #root {
     background: white;
